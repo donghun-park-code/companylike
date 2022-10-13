@@ -24,6 +24,7 @@ import site.metacoding.miniproject.web.dto.response.SignedDto;
 public class LikeController {
 	private final HttpSession session;
 	private final PersonalLikeService personalLikeService;
+	private final CompanyLikeService companyLikeService;
 	@PostMapping("/personalLike/{resumesId}/likes")
 	public @ResponseBody ResponseDto<?> insertLike(@PathVariable Integer resumesId) {
 		//Company company = (Company) session.getAttribute("principal");
@@ -55,5 +56,28 @@ public class LikeController {
 	@GetMapping("/recommend")
 	public String recommend() {
 		return "/company/recommend";
+	}
+	@PostMapping("/companyLike/{companyId}/likes")
+	public @ResponseBody ResponseDto<?> insertCompanyLike(@PathVariable Integer companyId) {
+		//Company company = (Company) session.getAttribute("principal");
+	
+		SignedDto<?> signedDto = (SignedDto) session.getAttribute("principal");
+		
+		companyLikeService.좋아요(companyId, signedDto.getPersonalId());
+		return new ResponseDto<>(1, "좋아요성공", null);
+		
+	}
+
+	@DeleteMapping("/companyLike/{companyId}/likes")
+	public @ResponseBody ResponseDto<?> deleteCompanyLike(@PathVariable Integer companyId){
+		
+		SignedDto<?> signedDto = (SignedDto) session.getAttribute("principal");
+		
+		companyLikeService.좋아요취소(companyId, signedDto.getPersonalId());
+		return new ResponseDto<>(1, "좋아요취소", null);
+	}
+	@GetMapping("/companyInsert")
+	public String companyInsert() {
+		return "/company/companyInsert";
 	}
 }

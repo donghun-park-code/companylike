@@ -49,6 +49,9 @@
 							<li
 								style="position: fixed; color: aliceblue; margin-top: 7px; right: 100px;"
 								class="nav-item">${principal.userinfo.companyName}님환영합니다.</li>
+							<li class="nav-item fa-regular fa-bell nav-link"
+								style="margin-left: 0; color: white; margin-top: 5px; cursor: pointer"
+								data-bs-toggle="modal" data-bs-target="#myModal" id="alarm"></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link" href="#">이력서관리</a></li>
@@ -60,7 +63,11 @@
 							<li class="nav-item"><a class="nav-link"
 								onclick="disconnect()" href="/logout">로그아웃</a></li>
 							<li class="nav-item"
-								style="position: fixed; color: aliceblue; margin-top: 7px; right: 100px;">${principal.userinfo.personalName}님환영합니다.</li>
+								style="position: fixed; color: aliceblue; margin-top: 7px; right: 100px;">${principal.userinfo.personalName}님
+								환영합니다.</li>
+							<li class="nav-item fa-regular fa-bell nav-link"
+								style="margin-left: 0; color: white; margin-top: 5px; cursor: pointer"
+								data-bs-toggle="modal" data-bs-target="#myModal" id="alarm"></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -117,7 +124,7 @@
 		</div>
 
 		<c:choose>
-			<c:when test="${principal.personalId != null}">
+			<c:when test="${company_like.company_like_id == null}">
 				<div id="btnlike">❤</div>
 			</c:when>
 			<c:otherwise>
